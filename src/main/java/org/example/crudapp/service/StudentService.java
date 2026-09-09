@@ -62,5 +62,17 @@ public class StudentService {
             return true;
 
     }
+    public Boolean deleteAllStudent() {
+
+        Long totalRecords = studentRepository.count();
+
+        if(totalRecords == 0) {
+            return false;
+        } else {
+            studentRepository.deleteAll();
+        }
+        return true;
+
+    }
 
 }

@@ -70,15 +70,18 @@ public class StudentController {
         }
         return ResponseEntity.ok("Record deleted");
     }
-//
-//    @DeleteMapping
-//    public ResponseEntity<String> deleteAllStudent() {
-//
-//        boolean isDeleted = studentService.deleteAllStudent();
-//
-//        return ResponseEntity.ok("All records deleted");
-//
-//    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteAllStudent() {
+
+        boolean isDeleted = studentService.deleteAllStudent();
+
+        if(!isDeleted) {
+            return ResponseEntity.status(404).body("Already empty database");
+        }
+        return ResponseEntity.ok("All records deleted");
+
+    }
 //    @PatchMapping("/id")
 //    public ResponseEntity<String> softDelete(@PathVariable Long id) {
 //        Boolean isDeleted = studentService.deleteStudentSoftly(id);
