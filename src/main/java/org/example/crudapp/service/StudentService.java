@@ -17,22 +17,38 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    public void createStudent(Student student) {
+    public String createStudent(Student student) {
+        Optional<Student> isExistAndIsDeletedFalse = studentRepository.findByIdAndDeletedIsFalse(student.getId());
+        if(isExistAndIsDeletedFalse.isPresent()) {
+            return "Student already exist with this id : " + student.getId();
+        }
+
+        Optional<Student> isExistAndIsDeletedTrue = studentRepository.findByIdAndDeletedIsTrue(student.getId());
+        if(isExistAndIsDeletedTrue.isPresent()) {
+            return "Cannot create student with this id : " + student.getId() ;
+        }
+        student.setDeleted(false);
         studentRepository.save(student);
+        return "Student created";
     }
 
     public Student getStudent(Long id) {
-        Optional<Student> studentRes = studentRepository.findById(id);
+        Optional<Student> studentRes = studentRepository.findByIdAndDeletedIsFalse(id);
+
         return studentRes.orElse(null);
     }
 
     public List<Student> getAllStudents() {
-        return studentRepository.findAll();
+
+        List<Student> studentList = studentRepository.findByDeletedIsFalse();
+
+//        return studentRepository.findAll();
+        return studentList;
     }
 
     public Student updateStudent(Long id, Student studentReq) {
 
-        Optional<Student> studentToUpdate = studentRepository.findById(id);
+        Optional<Student> studentToUpdate = studentRepository.findByIdAndDeletedIsFalse(id);
 
         if (studentToUpdate.isEmpty()) {
             return null;
@@ -74,5 +90,27 @@ public class StudentService {
         return true;
 
     }
+
+    public Boolean deleteStudentSoftly(Long id) {
+
+        Optional<Student> isPresent = studentRepository.findByIdAndDeletedIsFalse(id);
+
+        if(isPresent.isPresent()) {
+            Student student = isPresent.get();
+            if(student.getDeleted()) {
+                return true;
+            }
+            student.setDeleted(true);
+            studentRepository.save(student);
+            return true;
+        }
+        return false;
+
+
+
+
+    }
+
+
 
 }

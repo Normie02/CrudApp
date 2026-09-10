@@ -13,15 +13,15 @@ public class Student {
     private int age ;
     private int rollNo;
     private String subject;
-//    private boolean deleted;
+    private boolean deleted;
 
-//    public boolean getDeleted() {
-//        return deleted;
-//    }
-//
-//    public void setDeleted(boolean deleted) {
-//        this.deleted = deleted;
-//    }
+    public boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public long getId() {
         return id;
