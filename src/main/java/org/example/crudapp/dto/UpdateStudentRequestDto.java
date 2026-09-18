@@ -1,6 +1,7 @@
 package org.example.crudapp.dto;
 
 public class UpdateStudentRequestDto {
+
     private String name;
     private int age ;
     private int rollNo;

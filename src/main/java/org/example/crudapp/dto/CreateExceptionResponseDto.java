@@ -2,14 +2,15 @@ package org.example.crudapp.dto;
 
 import java.time.LocalDateTime;
 
-public class ExceptionResponseDto {
+public class CreateExceptionResponseDto {
     private LocalDateTime timeStamp;
     private int statusCode;
     private String error;
     private String message;
     private String path;
 
-    public ExceptionResponseDto(LocalDateTime timeStamp, int statusCode, String error, String message, String path) {
+
+    public CreateExceptionResponseDto(LocalDateTime timeStamp, int statusCode, String error, String message, String path) {
         this.timeStamp = timeStamp;
         this.statusCode = statusCode;
         this.error = error;
@@ -18,6 +19,7 @@ public class ExceptionResponseDto {
     }
 
     public LocalDateTime getTimeStamp() {
+
         return timeStamp;
     }
 
